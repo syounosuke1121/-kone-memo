@@ -6,329 +6,277 @@
 <meta name="theme-color" content="#0f172a">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="K-Oneメモ">
+<meta name="apple-mobile-web-app-title" content="K-ONE営業ノート">
 <link rel="apple-touch-icon" href="./icon-192.png">
 <link rel="manifest" href="./manifest.webmanifest">
-<title>K-One 商談・用語メモ</title>
+<title>K-ONE営業ノート</title>
 <style>
 :root{
-  --bg:#f5f7fb;--card:#fff;--ink:#111827;--muted:#6b7280;--line:#e5e7eb;
-  --navy:#0f172a;--blue:#2563eb;--green:#16a34a;--amber:#d97706;--red:#dc2626;
+  --bg:#f4f7fb;--card:#fff;--ink:#0f172a;--muted:#64748b;--line:#dbe4f0;
+  --navy:#0f172a;--blue:#2563eb;--green:#16a34a;--orange:#f97316;--violet:#7c3aed;--red:#dc2626;
 }
 *{box-sizing:border-box}
-html,body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Yu Gothic",sans-serif}
-body{padding-bottom:calc(84px + env(safe-area-inset-bottom))}
-header{
-  position:sticky;top:0;z-index:20;background:var(--navy);color:white;
-  padding:calc(14px + env(safe-area-inset-top)) 16px 14px;
-  box-shadow:0 4px 16px rgba(15,23,42,.16)
-}
-header h1{font-size:19px;margin:0}
-header p{font-size:11px;color:#cbd5e1;margin:4px 0 0}
-main{max-width:760px;margin:auto;padding:14px}
+html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Yu Gothic",sans-serif}
+body{padding-bottom:calc(78px + env(safe-area-inset-bottom));overflow-x:hidden}
+button,input,textarea,select{font:inherit}
+header{position:sticky;top:0;z-index:30;background:var(--navy);color:#fff;padding:calc(14px + env(safe-area-inset-top)) 17px 14px;box-shadow:0 5px 18px rgba(15,23,42,.18)}
+header h1{margin:0;font-size:20px;letter-spacing:.01em}
+header p{margin:5px 0 0;font-size:12px;color:#cbd5e1}
+main{max-width:780px;margin:0 auto;padding:16px 14px 28px;overflow:hidden}
 .view{display:none}.view.active{display:block}
-.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:15px;box-shadow:0 3px 12px rgba(15,23,42,.05);margin-bottom:12px}
-h2{font-size:21px;margin:2px 0 14px} h3{font-size:16px;margin:0 0 10px}
-label{display:block;font-size:13px;font-weight:700;margin:12px 0 6px}
+h2{font-size:24px;margin:2px 0 15px}
+h3{font-size:17px;margin:0 0 11px}
+.card{width:100%;min-width:0;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:15px;margin-bottom:13px;box-shadow:0 4px 15px rgba(15,23,42,.045)}
+.home-list{display:grid;gap:13px}
+.home-card{display:flex;align-items:center;gap:14px;width:100%;border:1px solid var(--line);border-radius:19px;padding:19px 17px;background:#fff;text-align:left;min-height:102px}
+.home-card .icon{flex:0 0 54px;width:54px;height:54px;border-radius:15px;display:grid;place-items:center;color:#fff;font-size:27px;font-weight:800}
+.home-card strong{display:block;font-size:19px}.home-card small{display:block;color:var(--muted);font-size:12px;margin-top:5px;line-height:1.45}
+.home-card .arrow{margin-left:auto;font-size:28px}
+.home-card.meeting{background:#f4f8ff;border-color:#bfdbfe}.meeting .icon{background:var(--blue)}.meeting .arrow{color:var(--blue)}
+.home-card.term{background:#f2fcf5;border-color:#bbf7d0}.term .icon{background:var(--green)}.term .arrow{color:var(--green)}
+.home-card.learning{background:#fff9f0;border-color:#fed7aa}.learning .icon{background:var(--orange)}.learning .arrow{color:var(--orange)}
+.home-card.search-card{background:#f8f5ff;border-color:#ddd6fe}.search-card .icon{background:var(--violet)}.search-card .arrow{color:var(--violet)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:14px}
+.stat{background:#fff;border:1px solid var(--line);border-radius:17px;padding:13px 9px;text-align:center}.stat b{display:block;font-size:25px}.stat span{font-size:11px;color:var(--muted)}
+label{display:block;font-size:14px;font-weight:800;margin:13px 0 7px}
 input,textarea,select{
-  width:100%;font-size:16px;border:1px solid #cbd5e1;border-radius:12px;background:white;
-  padding:12px;min-height:48px;color:var(--ink)
+  display:block;width:100%;max-width:100%;min-width:0;border:1px solid #cbd8e8;border-radius:13px;background:#fff;color:var(--ink);
+  padding:12px 13px;font-size:16px;line-height:1.35;outline:none
 }
-textarea{min-height:112px;resize:vertical}
-button{font:inherit}
-.primary{width:100%;border:0;border-radius:12px;background:var(--blue);color:white;font-weight:800;padding:13px;margin-top:14px;min-height:50px}
-.secondary{border:1px solid #cbd5e1;background:white;border-radius:10px;padding:9px 11px;font-weight:700}
-.danger{border-color:#fecaca;color:var(--red)}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.stat{background:white;border:1px solid var(--line);border-radius:16px;padding:14px}
-.stat b{font-size:28px;display:block}.stat span{font-size:12px;color:var(--muted)}
-.quick{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.quick button{min-height:84px;border:0;border-radius:16px;color:white;font-weight:800;font-size:15px}
-.quick .meeting{background:linear-gradient(135deg,#2563eb,#1d4ed8)}
-.quick .term{background:linear-gradient(135deg,#16a34a,#15803d)}
-.search{margin-bottom:12px}
-.item{background:white;border:1px solid var(--line);border-radius:15px;padding:13px;margin-bottom:10px}
-.item-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
-.item-title{font-weight:800;font-size:16px}
-.meta{font-size:11px;color:var(--muted);margin-top:3px}
-.body{font-size:14px;line-height:1.65;margin-top:10px;white-space:pre-wrap}
-.tag{display:inline-block;font-size:11px;font-weight:700;color:#1d4ed8;background:#eff6ff;padding:4px 8px;border-radius:999px;margin-right:5px}
-.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
-.empty{text-align:center;color:var(--muted);padding:28px 12px}
-.bottom-nav{
-  position:fixed;left:0;right:0;bottom:0;z-index:30;background:white;border-top:1px solid var(--line);
-  display:grid;grid-template-columns:repeat(4,1fr);padding-bottom:env(safe-area-inset-bottom);
-  box-shadow:0 -5px 20px rgba(15,23,42,.08)
+input{height:49px}
+input[type="date"]{
+  -webkit-appearance:none;appearance:none;width:100%;max-width:100%;min-width:0;height:49px;padding:10px 12px;
 }
-.bottom-nav button{border:0;background:white;padding:8px 2px 9px;font-size:10px;color:var(--muted);font-weight:700}
-.bottom-nav button::before{display:block;font-size:22px;margin-bottom:3px}
+input[type="date"]::-webkit-date-and-time-value{text-align:left;min-width:0}
+textarea{min-height:102px;resize:vertical}
+input:focus,textarea:focus,select:focus{border-color:#60a5fa;box-shadow:0 0 0 3px rgba(37,99,235,.10)}
+.primary{width:100%;border:0;border-radius:13px;background:var(--blue);color:#fff;font-weight:800;min-height:50px;padding:12px;margin-top:15px}
+.secondary{border:1px solid #cbd5e1;background:#fff;border-radius:11px;padding:9px 12px;font-weight:750}
+.danger{color:var(--red);border-color:#fecaca}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:11px}.actions button{flex:1;min-width:95px}
+.item{background:#fff;border:1px solid var(--line);border-radius:17px;padding:14px;margin-bottom:10px}
+.item-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.item-title{font-size:16px;font-weight:850}.meta{font-size:11px;color:var(--muted);margin-top:4px}
+.body{font-size:14px;line-height:1.65;margin-top:9px;white-space:pre-wrap;overflow-wrap:anywhere}
+.tag{display:inline-block;border-radius:999px;padding:4px 8px;font-size:10px;font-weight:800}
+.tag.blue{background:#eff6ff;color:#1d4ed8}.tag.green{background:#f0fdf4;color:#15803d}.tag.orange{background:#fff7ed;color:#c2410c}
+.search-box{position:sticky;top:85px;z-index:10;background:var(--bg);padding:0 0 10px}
+.filters{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;background:#e9eef6;padding:4px;border-radius:12px;margin-bottom:12px}
+.filters button{border:0;background:transparent;border-radius:9px;padding:9px 3px;font-size:11px;font-weight:800;color:var(--muted)}
+.filters button.active{background:#fff;color:var(--blue);box-shadow:0 2px 7px rgba(15,23,42,.08)}
+.rating{display:flex;gap:7px;margin-top:7px}.star{border:0;background:transparent;color:#cbd5e1;font-size:27px;padding:1px}.star.on{color:#f59e0b}
+.empty{text-align:center;color:var(--muted);padding:30px 10px}
+.bottom-nav{position:fixed;left:0;right:0;bottom:0;z-index:40;background:#fff;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(5,1fr);padding-bottom:env(safe-area-inset-bottom);box-shadow:0 -5px 20px rgba(15,23,42,.08)}
+.bottom-nav button{border:0;background:#fff;color:var(--muted);font-size:9px;font-weight:800;padding:8px 1px 9px;min-width:0}
+.bottom-nav button::before{display:block;font-size:20px;margin-bottom:3px}
 .bottom-nav button[data-view="home"]::before{content:"⌂"}
-.bottom-nav button[data-view="meetings"]::before{content:"商"}
-.bottom-nav button[data-view="terms"]::before{content:"辞"}
-.bottom-nav button[data-view="settings"]::before{content:"⚙"}
-.bottom-nav button.active{color:var(--blue);background:#eff6ff}
-.notice{font-size:12px;line-height:1.6;color:#475569;background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:11px}
-.install{position:fixed;left:12px;right:12px;bottom:calc(86px + env(safe-area-inset-bottom));z-index:40;background:#0f172a;color:white;border-radius:15px;padding:12px;display:none;box-shadow:0 15px 30px rgba(0,0,0,.25)}
-.install-row{display:flex;align-items:center;gap:10px}
-.install small{color:#cbd5e1}.install button{margin-left:auto;border:0;border-radius:9px;padding:9px 11px;font-weight:800}
-@media(min-width:700px){.grid{grid-template-columns:repeat(4,1fr)}.quick{max-width:520px}.bottom-nav{left:50%;transform:translateX(-50%);max-width:760px}}
+.bottom-nav button[data-view="meetings"]::before{content:"📝"}
+.bottom-nav button[data-view="terms"]::before{content:"📚"}
+.bottom-nav button[data-view="learning"]::before{content:"✎"}
+.bottom-nav button[data-view="search"]::before{content:"⌕"}
+.bottom-nav button.active{background:#eef5ff;color:var(--blue)}
+.notice{font-size:12px;color:#475569;line-height:1.6;background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:11px}
+@media(min-width:700px){main{padding:20px}.home-list{grid-template-columns:1fr 1fr}.bottom-nav{left:50%;transform:translateX(-50%);max-width:780px}}
 </style>
 </head>
 <body>
-<header><h1>K-One 商談・用語メモ</h1><p>商談で得た情報と、わからない専門用語をその場で記録</p></header>
+<header>
+  <h1>オフィスケイワン営業アプリ</h1>
+  <p>営業の記録と学びを、シンプルに。</p>
+</header>
 
 <main>
 <section id="home" class="view active">
   <h2>ホーム</h2>
-  <div class="grid">
+  <div class="stats">
     <div class="stat"><b id="meetingCount">0</b><span>商談メモ</span></div>
     <div class="stat"><b id="termCount">0</b><span>専門用語</span></div>
+    <div class="stat"><b id="learningCount">0</b><span>今日の学び</span></div>
   </div>
-  <div class="card">
-    <h3>すぐにメモ</h3>
-    <div class="quick">
-      <button class="meeting" onclick="openMeetingForm()">商談メモを追加</button>
-      <button class="term" onclick="openTermForm()">専門用語を追加</button>
-    </div>
+  <div class="home-list">
+    <button class="home-card meeting" onclick="openNewMeeting()"><span class="icon">✎</span><span><strong>📝 商談メモ</strong><small>商談内容や次回アクションを記録</small></span><span class="arrow">›</span></button>
+    <button class="home-card term" onclick="openNewTerm()"><span class="icon">▣</span><span><strong>📚 専門用語</strong><small>わからない用語を調べて整理</small></span><span class="arrow">›</span></button>
+    <button class="home-card learning" onclick="openNewLearning()"><span class="icon">☷</span><span><strong>📝 今日の学び</strong><small>学び・反省・明日の行動を記録</small></span><span class="arrow">›</span></button>
+    <button class="home-card search-card" onclick="showView('search')"><span class="icon">⌕</span><span><strong>🔍 検索</strong><small>メモ・用語・学びをまとめて検索</small></span><span class="arrow">›</span></button>
   </div>
-  <div class="card">
-    <h3>直近の記録</h3>
-    <div id="recentList"></div>
-  </div>
+  <div class="card" style="margin-top:14px"><h3>最近の記録</h3><div id="recentList"></div></div>
 </section>
 
 <section id="meetings" class="view">
   <h2>商談メモ</h2>
-  <div class="card" id="meetingFormCard">
-    <h3 id="meetingFormTitle">新しい商談メモ</h3>
+  <div class="card">
+    <h3 id="meetingFormTitle">商談メモ 新規作成</h3>
     <input type="hidden" id="meetingId">
-    <label>商談日</label><input type="date" id="meetingDate">
-    <label>会社名・顧客名</label><input id="meetingClient" placeholder="例：〇〇建設コンサルタント">
-    <label>相手の役職・立場</label><input id="meetingRole" placeholder="例：設計部 課長">
-    <label>商談の目的</label><textarea id="meetingPurpose" placeholder="何を確認・提案する商談だったか"></textarea>
-    <label>相手の課題</label><textarea id="meetingProblem" placeholder="困っていること、負担、不満、要望"></textarea>
-    <label>提案・説明した内容</label><textarea id="meetingProposal" placeholder="どの商品・機能・効果を伝えたか"></textarea>
-    <label>次回アクション</label><textarea id="meetingNext" placeholder="資料送付、再訪、確認事項など"></textarea>
-    <label>自分の学び</label><textarea id="meetingLearning" placeholder="次回改善したいこと、気づき"></textarea>
-    <button class="primary" onclick="saveMeeting()">保存する</button>
+    <label for="meetingDate">商談日</label><input type="date" id="meetingDate">
+    <label for="meetingClient">会社名・顧客名</label><input id="meetingClient" placeholder="例）〇〇建設株式会社">
+    <label for="meetingPerson">担当者名・役職</label><input id="meetingPerson" placeholder="例）田中様・設計部課長">
+    <label for="meetingProblem">相手の課題</label><textarea id="meetingProblem" placeholder="相手が抱えている課題・困りごと"></textarea>
+    <label for="meetingProposal">提案内容</label><textarea id="meetingProposal" placeholder="こちらから提案した内容・方向性"></textarea>
+    <label for="meetingNext">次回アクション</label><textarea id="meetingNext" placeholder="次回までにやること・確認すること"></textarea>
+    <label for="meetingMemo">メモ（自由記入）</label><textarea id="meetingMemo" placeholder="その他のメモ・気づき"></textarea>
+    <button class="primary" onclick="saveMeeting()">保存</button>
     <button class="secondary" style="width:100%;margin-top:8px" onclick="resetMeetingForm()">入力をクリア</button>
   </div>
-  <input class="search" id="meetingSearch" placeholder="会社名・課題・提案内容で検索" oninput="renderMeetings()">
   <div id="meetingList"></div>
 </section>
 
 <section id="terms" class="view">
-  <h2>専門用語メモ</h2>
-  <div class="card" id="termFormCard">
-    <h3 id="termFormTitle">わからない用語を記録</h3>
+  <h2>専門用語</h2>
+  <div class="card">
+    <h3 id="termFormTitle">専門用語 新規作成</h3>
     <input type="hidden" id="termId">
-    <label>専門用語</label><input id="termName" placeholder="例：照査、点群、橋台">
-    <label>どこで出た言葉か</label><input id="termContext" placeholder="例：〇〇社との商談、製品資料">
-    <label>その場で聞いた説明・自分の予想</label><textarea id="termGuess" placeholder="完全に正しくなくても、まずメモ"></textarea>
-    <label>調べた意味</label><textarea id="termMeaning" placeholder="後から調べて追記"></textarea>
-    <label>営業でどう使うか</label><textarea id="termUsage" placeholder="顧客の課題や提案とどう結びつくか"></textarea>
-    <label>理解度</label>
-    <select id="termLevel">
-      <option value="1">1：まだわからない</option>
-      <option value="2">2：なんとなくわかる</option>
-      <option value="3">3：自分の言葉で説明できる</option>
-      <option value="4">4：商談で使える</option>
-    </select>
-    <button class="primary" onclick="saveTerm()">保存する</button>
+    <label for="termName">用語名</label><input id="termName" placeholder="例）NETIS">
+    <label for="termContext">どこで聞いたか</label><input id="termContext" placeholder="例）〇〇建設との打ち合わせ">
+    <label for="termMeaning">意味・定義</label><textarea id="termMeaning" placeholder="簡単に説明すると？"></textarea>
+    <label for="termUsage">営業での使い方・説明方法</label><textarea id="termUsage" placeholder="お客様にどう説明するか？"></textarea>
+    <label>理解度</label><div id="termRating" class="rating"></div>
+    <label for="termMemo">メモ（自由記入）</label><textarea id="termMemo" placeholder="補足情報・参考になること"></textarea>
+    <button class="primary" onclick="saveTerm()">保存</button>
     <button class="secondary" style="width:100%;margin-top:8px" onclick="resetTermForm()">入力をクリア</button>
   </div>
-  <input class="search" id="termSearch" placeholder="用語・意味・使用場面で検索" oninput="renderTerms()">
   <div id="termList"></div>
 </section>
 
-<section id="settings" class="view">
-  <h2>設定・バックアップ</h2>
+<section id="learning" class="view">
+  <h2>今日の学び</h2>
   <div class="card">
-    <h3>データのバックアップ</h3>
-    <p class="notice">データはこのiPhoneのブラウザ内に保存されます。機種変更やブラウザデータ削除に備えて、定期的にバックアップしてください。</p>
-    <button class="primary" onclick="exportData()">バックアップを書き出す</button>
-    <label>バックアップを読み込む</label>
-    <input type="file" id="importFile" accept="application/json" onchange="importData(event)">
+    <h3 id="learningFormTitle">今日の学び 新規作成</h3>
+    <input type="hidden" id="learningId">
+    <label for="learningDate">日付</label><input type="date" id="learningDate">
+    <label for="learningGood">今日覚えたこと・良かったこと</label><textarea id="learningGood" placeholder="学んだこと、気づいたこと、うまくいったこと"></textarea>
+    <label for="learningImprove">今日の反省・改善点</label><textarea id="learningImprove" placeholder="うまくいかなかったこと、反省点"></textarea>
+    <label for="learningTomorrow">明日やること・行動</label><textarea id="learningTomorrow" placeholder="明日取り組むこと、改善すること"></textarea>
+    <label>自己評価</label><div id="learningRating" class="rating"></div>
+    <label for="learningMemo">メモ（自由記入）</label><textarea id="learningMemo" placeholder="その他のメモ"></textarea>
+    <button class="primary" onclick="saveLearning()">保存</button>
+    <button class="secondary" style="width:100%;margin-top:8px" onclick="resetLearningForm()">入力をクリア</button>
   </div>
-  <div class="card">
-    <h3>ホーム画面への追加方法</h3>
-    <div class="notice">
-      Safariでこのアプリを開き、画面下の共有ボタンを押します。<br>
-      「ホーム画面に追加」→「追加」を選ぶと、通常のアプリのように起動できます。
-    </div>
+  <div id="learningList"></div>
+</section>
+
+<section id="search" class="view">
+  <h2>検索</h2>
+  <div class="search-box">
+    <input id="searchInput" placeholder="会社名・担当者・用語・学びを検索" oninput="renderSearch()">
   </div>
-  <div class="card">
-    <h3>すべてのデータを削除</h3>
-    <button class="secondary danger" style="width:100%" onclick="clearAll()">全データを削除する</button>
+  <div class="filters">
+    <button class="active" data-filter="all" onclick="setFilter('all')">すべて</button>
+    <button data-filter="meeting" onclick="setFilter('meeting')">商談</button>
+    <button data-filter="term" onclick="setFilter('term')">用語</button>
+    <button data-filter="learning" onclick="setFilter('learning')">学び</button>
   </div>
+  <div id="searchResults"></div>
 </section>
 </main>
 
 <nav class="bottom-nav">
   <button class="active" data-view="home">ホーム</button>
-  <button data-view="meetings">商談</button>
-  <button data-view="terms">用語</button>
-  <button data-view="settings">設定</button>
+  <button data-view="meetings">商談メモ</button>
+  <button data-view="terms">専門用語</button>
+  <button data-view="learning">今日の学び</button>
+  <button data-view="search">検索</button>
 </nav>
 
-<div class="install" id="installBanner">
-  <div class="install-row">
-    <div><b>ホーム画面に追加</b><br><small>アプリとしてすぐ起動できます</small></div>
-    <button id="installBtn">追加</button>
-    <button id="closeInstall">×</button>
-  </div>
-</div>
-
 <script>
-const KEY_MEETINGS="kone_meetings_v1";
-const KEY_TERMS="kone_terms_v1";
-let meetings=JSON.parse(localStorage.getItem(KEY_MEETINGS)||"[]");
-let terms=JSON.parse(localStorage.getItem(KEY_TERMS)||"[]");
-
+"use strict";
 const $=id=>document.getElementById(id);
-const esc=s=>String(s||"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[m]));
-const today=()=>new Date().toISOString().slice(0,10);
+const esc=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[m]));
+const dateToday=()=>{const d=new Date();d.setMinutes(d.getMinutes()-d.getTimezoneOffset());return d.toISOString().slice(0,10)};
+const K={meetings:"kone_note_meetings_v1",terms:"kone_note_terms_v1",learning:"kone_note_learning_v1"};
+let meetings=JSON.parse(localStorage.getItem(K.meetings)||"[]");
+let terms=JSON.parse(localStorage.getItem(K.terms)||"[]");
+let learning=JSON.parse(localStorage.getItem(K.learning)||"[]");
+let termLevel=1,learningLevel=3,searchFilter="all";
 
-document.querySelectorAll(".bottom-nav button").forEach(b=>b.onclick=()=>showView(b.dataset.view));
+function migrateOldData(){
+  if(!meetings.length){
+    const old=JSON.parse(localStorage.getItem("kone_meetings_v2")||localStorage.getItem("kone_meetings_v1")||"[]");
+    meetings=old.map(m=>({id:String(m.id||Date.now()+Math.random()),date:m.date||dateToday(),client:m.client||"",person:m.role||"",problem:m.problem||"",proposal:m.proposal||"",next:m.next||"",memo:m.learning||m.purpose||"",updatedAt:m.updatedAt||new Date().toISOString()}));
+  }
+  if(!terms.length){
+    const old=JSON.parse(localStorage.getItem("kone_terms_v2")||localStorage.getItem("kone_terms_v1")||"[]");
+    terms=old.map(t=>({id:String(t.id||Date.now()+Math.random()),name:t.name||"",context:t.context||"",meaning:t.meaning||t.guess||"",usage:t.usage||"",memo:"",level:Number(t.level||1),updatedAt:t.updatedAt||new Date().toISOString()}));
+  }
+  persist(false);
+}
+function persist(render=true){
+  localStorage.setItem(K.meetings,JSON.stringify(meetings));
+  localStorage.setItem(K.terms,JSON.stringify(terms));
+  localStorage.setItem(K.learning,JSON.stringify(learning));
+  if(render)renderAll();
+}
 function showView(id){
   document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));
   document.querySelectorAll(".bottom-nav button").forEach(b=>b.classList.toggle("active",b.dataset.view===id));
-  $(id).classList.add("active");
-  window.scrollTo({top:0,behavior:"smooth"});
-  renderAll();
+  $(id).classList.add("active");window.scrollTo({top:0,behavior:"smooth"});renderAll();
 }
-function persist(){
-  localStorage.setItem(KEY_MEETINGS,JSON.stringify(meetings));
-  localStorage.setItem(KEY_TERMS,JSON.stringify(terms));
-  renderAll();
-}
+document.querySelectorAll(".bottom-nav button").forEach(b=>b.addEventListener("click",()=>showView(b.dataset.view)));
 
-function openMeetingForm(){showView("meetings");setTimeout(()=>$("meetingClient").focus(),250)}
-function openTermForm(){showView("terms");setTimeout(()=>$("termName").focus(),250)}
+function starsHtml(level,fn){return [1,2,3,4,5].map(n=>`<button type="button" class="star ${n<=level?"on":""}" onclick="${fn}(${n})">★</button>`).join("")}
+function setTermLevel(n){termLevel=n;$("termRating").innerHTML=starsHtml(termLevel,"setTermLevel")}
+function setLearningLevel(n){learningLevel=n;$("learningRating").innerHTML=starsHtml(learningLevel,"setLearningLevel")}
+
+function openNewMeeting(){resetMeetingForm();showView("meetings");setTimeout(()=>$("meetingClient").focus(),250)}
+function openNewTerm(){resetTermForm();showView("terms");setTimeout(()=>$("termName").focus(),250)}
+function openNewLearning(){resetLearningForm();showView("learning");setTimeout(()=>$("learningGood").focus(),250)}
 
 function saveMeeting(){
-  const client=$("meetingClient").value.trim();
-  if(!client){alert("会社名・顧客名を入力してください");return}
-  const obj={
-    id:$("meetingId").value||String(Date.now()),
-    date:$("meetingDate").value||today(),
-    client, role:$("meetingRole").value.trim(),
-    purpose:$("meetingPurpose").value.trim(),
-    problem:$("meetingProblem").value.trim(),
-    proposal:$("meetingProposal").value.trim(),
-    next:$("meetingNext").value.trim(),
-    learning:$("meetingLearning").value.trim(),
-    updatedAt:new Date().toISOString()
-  };
-  const i=meetings.findIndex(x=>x.id===obj.id);
-  if(i>=0) meetings[i]=obj; else meetings.unshift(obj);
-  resetMeetingForm();persist();alert("商談メモを保存しました");
+  const client=$("meetingClient").value.trim();if(!client){alert("会社名・顧客名を入力してください");return}
+  const obj={id:$("meetingId").value||String(Date.now()),date:$("meetingDate").value||dateToday(),client,person:$("meetingPerson").value.trim(),problem:$("meetingProblem").value.trim(),proposal:$("meetingProposal").value.trim(),next:$("meetingNext").value.trim(),memo:$("meetingMemo").value.trim(),updatedAt:new Date().toISOString()};
+  const i=meetings.findIndex(x=>x.id===obj.id);i>=0?meetings.splice(i,1,obj):meetings.unshift(obj);persist();resetMeetingForm();alert("商談メモを保存しました");
 }
-function editMeeting(id){
-  const m=meetings.find(x=>x.id===id); if(!m)return;
-  showView("meetings");
-  $("meetingId").value=m.id;$("meetingDate").value=m.date;$("meetingClient").value=m.client;
-  $("meetingRole").value=m.role;$("meetingPurpose").value=m.purpose;$("meetingProblem").value=m.problem;
-  $("meetingProposal").value=m.proposal;$("meetingNext").value=m.next;$("meetingLearning").value=m.learning;
-  $("meetingFormTitle").textContent="商談メモを編集";
-  window.scrollTo({top:0,behavior:"smooth"});
-}
+function resetMeetingForm(){["meetingId","meetingClient","meetingPerson","meetingProblem","meetingProposal","meetingNext","meetingMemo"].forEach(id=>$(id).value="");$("meetingDate").value=dateToday();$("meetingFormTitle").textContent="商談メモ 新規作成"}
+function editMeeting(id){const m=meetings.find(x=>x.id===id);if(!m)return;$("meetingId").value=m.id;$("meetingDate").value=m.date;$("meetingClient").value=m.client;$("meetingPerson").value=m.person;$("meetingProblem").value=m.problem;$("meetingProposal").value=m.proposal;$("meetingNext").value=m.next;$("meetingMemo").value=m.memo;$("meetingFormTitle").textContent="商談メモを編集";showView("meetings")}
 function deleteMeeting(id){if(confirm("この商談メモを削除しますか？")){meetings=meetings.filter(x=>x.id!==id);persist()}}
-function resetMeetingForm(){
-  ["meetingId","meetingClient","meetingRole","meetingPurpose","meetingProblem","meetingProposal","meetingNext","meetingLearning"].forEach(id=>$(id).value="");
-  $("meetingDate").value=today();$("meetingFormTitle").textContent="新しい商談メモ";
-}
-function renderMeetings(){
-  const q=($("meetingSearch").value||"").toLowerCase();
-  const list=meetings.filter(m=>Object.values(m).join(" ").toLowerCase().includes(q));
-  $("meetingList").innerHTML=list.length?list.map(m=>`
-    <article class="item">
-      <div class="item-head"><div><div class="item-title">${esc(m.client)}</div><div class="meta">${esc(m.date)} ${m.role?"／ "+esc(m.role):""}</div></div><span class="tag">商談</span></div>
-      ${m.problem?`<div class="body"><b>課題</b><br>${esc(m.problem)}</div>`:""}
-      ${m.proposal?`<div class="body"><b>提案</b><br>${esc(m.proposal)}</div>`:""}
-      ${m.next?`<div class="body"><b>次回</b><br>${esc(m.next)}</div>`:""}
-      <div class="actions"><button class="secondary" onclick="editMeeting('${m.id}')">編集</button><button class="secondary danger" onclick="deleteMeeting('${m.id}')">削除</button></div>
-    </article>`).join(""):'<div class="empty">商談メモはまだありません</div>';
-}
+function meetingCard(m){return `<article class="item"><div class="item-head"><div><div class="item-title">${esc(m.client)}</div><div class="meta">${esc(m.date)}${m.person?" ／ "+esc(m.person):""}</div></div><span class="tag blue">商談</span></div>${m.problem?`<div class="body"><b>課題</b><br>${esc(m.problem)}</div>`:""}${m.next?`<div class="body"><b>次回</b><br>${esc(m.next)}</div>`:""}<div class="actions"><button class="secondary" onclick="editMeeting('${m.id}')">編集</button><button class="secondary danger" onclick="deleteMeeting('${m.id}')">削除</button></div></article>`}
+function renderMeetings(){$("meetingList").innerHTML=meetings.length?meetings.map(meetingCard).join(""):'<div class="empty">商談メモはまだありません</div>'}
 
 function saveTerm(){
-  const name=$("termName").value.trim();
-  if(!name){alert("専門用語を入力してください");return}
-  const obj={
-    id:$("termId").value||String(Date.now()),name,
-    context:$("termContext").value.trim(),guess:$("termGuess").value.trim(),
-    meaning:$("termMeaning").value.trim(),usage:$("termUsage").value.trim(),
-    level:Number($("termLevel").value),updatedAt:new Date().toISOString()
-  };
-  const i=terms.findIndex(x=>x.id===obj.id);
-  if(i>=0) terms[i]=obj; else terms.unshift(obj);
-  resetTermForm();persist();alert("専門用語を保存しました");
+  const name=$("termName").value.trim();if(!name){alert("用語名を入力してください");return}
+  const obj={id:$("termId").value||String(Date.now()),name,context:$("termContext").value.trim(),meaning:$("termMeaning").value.trim(),usage:$("termUsage").value.trim(),memo:$("termMemo").value.trim(),level:termLevel,updatedAt:new Date().toISOString()};
+  const i=terms.findIndex(x=>x.id===obj.id);i>=0?terms.splice(i,1,obj):terms.unshift(obj);persist();resetTermForm();alert("専門用語を保存しました");
 }
-function editTerm(id){
-  const t=terms.find(x=>x.id===id);if(!t)return;
-  showView("terms");
-  $("termId").value=t.id;$("termName").value=t.name;$("termContext").value=t.context;
-  $("termGuess").value=t.guess;$("termMeaning").value=t.meaning;$("termUsage").value=t.usage;$("termLevel").value=t.level;
-  $("termFormTitle").textContent="専門用語を編集";window.scrollTo({top:0,behavior:"smooth"});
+function resetTermForm(){["termId","termName","termContext","termMeaning","termUsage","termMemo"].forEach(id=>$(id).value="");$("termFormTitle").textContent="専門用語 新規作成";setTermLevel(1)}
+function editTerm(id){const t=terms.find(x=>x.id===id);if(!t)return;$("termId").value=t.id;$("termName").value=t.name;$("termContext").value=t.context;$("termMeaning").value=t.meaning;$("termUsage").value=t.usage;$("termMemo").value=t.memo;setTermLevel(t.level);$("termFormTitle").textContent="専門用語を編集";showView("terms")}
+function deleteTerm(id){if(confirm("この専門用語を削除しますか？")){terms=terms.filter(x=>x.id!==id);persist()}}
+function termCard(t){return `<article class="item"><div class="item-head"><div><div class="item-title">${esc(t.name)}</div><div class="meta">${esc(t.context||"使用場面未登録")}</div></div><span class="tag green">理解度 ${t.level}</span></div><div class="body">${t.meaning?esc(t.meaning):"意味は未入力です"}</div><div class="actions"><button class="secondary" onclick="editTerm('${t.id}')">編集</button><button class="secondary danger" onclick="deleteTerm('${t.id}')">削除</button></div></article>`}
+function renderTerms(){$("termList").innerHTML=terms.length?terms.map(termCard).join(""):'<div class="empty">専門用語はまだありません</div>'}
+
+function saveLearning(){
+  const good=$("learningGood").value.trim();if(!good&&!$("learningImprove").value.trim()){alert("学びか反省を入力してください");return}
+  const obj={id:$("learningId").value||String(Date.now()),date:$("learningDate").value||dateToday(),good,improve:$("learningImprove").value.trim(),tomorrow:$("learningTomorrow").value.trim(),memo:$("learningMemo").value.trim(),level:learningLevel,updatedAt:new Date().toISOString()};
+  const i=learning.findIndex(x=>x.id===obj.id);i>=0?learning.splice(i,1,obj):learning.unshift(obj);persist();resetLearningForm();alert("今日の学びを保存しました");
 }
-function deleteTerm(id){if(confirm("この専門用語メモを削除しますか？")){terms=terms.filter(x=>x.id!==id);persist()}}
-function resetTermForm(){
-  ["termId","termName","termContext","termGuess","termMeaning","termUsage"].forEach(id=>$(id).value="");
-  $("termLevel").value="1";$("termFormTitle").textContent="わからない用語を記録";
-}
-function renderTerms(){
-  const q=($("termSearch").value||"").toLowerCase();
-  const list=terms.filter(t=>Object.values(t).join(" ").toLowerCase().includes(q));
-  $("termList").innerHTML=list.length?list.map(t=>`
-    <article class="item">
-      <div class="item-head"><div><div class="item-title">${esc(t.name)}</div><div class="meta">${t.context?esc(t.context):"使用場面未登録"}</div></div><span class="tag">理解度 ${t.level}</span></div>
-      ${t.meaning?`<div class="body"><b>意味</b><br>${esc(t.meaning)}</div>`:`<div class="body"><b>未調査</b><br>後から意味を追記してください。</div>`}
-      ${t.usage?`<div class="body"><b>営業での使い方</b><br>${esc(t.usage)}</div>`:""}
-      <div class="actions"><button class="secondary" onclick="editTerm('${t.id}')">編集</button><button class="secondary danger" onclick="deleteTerm('${t.id}')">削除</button></div>
-    </article>`).join(""):'<div class="empty">専門用語メモはまだありません</div>';
+function resetLearningForm(){["learningId","learningGood","learningImprove","learningTomorrow","learningMemo"].forEach(id=>$(id).value="");$("learningDate").value=dateToday();$("learningFormTitle").textContent="今日の学び 新規作成";setLearningLevel(3)}
+function editLearning(id){const l=learning.find(x=>x.id===id);if(!l)return;$("learningId").value=l.id;$("learningDate").value=l.date;$("learningGood").value=l.good;$("learningImprove").value=l.improve;$("learningTomorrow").value=l.tomorrow;$("learningMemo").value=l.memo;setLearningLevel(l.level);$("learningFormTitle").textContent="今日の学びを編集";showView("learning")}
+function deleteLearning(id){if(confirm("この学びを削除しますか？")){learning=learning.filter(x=>x.id!==id);persist()}}
+function learningCard(l){return `<article class="item"><div class="item-head"><div><div class="item-title">${esc(l.good||"今日の振り返り")}</div><div class="meta">${esc(l.date)}</div></div><span class="tag orange">評価 ${l.level}</span></div>${l.improve?`<div class="body"><b>反省</b><br>${esc(l.improve)}</div>`:""}${l.tomorrow?`<div class="body"><b>明日</b><br>${esc(l.tomorrow)}</div>`:""}<div class="actions"><button class="secondary" onclick="editLearning('${l.id}')">編集</button><button class="secondary danger" onclick="deleteLearning('${l.id}')">削除</button></div></article>`}
+function renderLearning(){$("learningList").innerHTML=learning.length?learning.map(learningCard).join(""):'<div class="empty">今日の学びはまだありません</div>'}
+
+function setFilter(f){searchFilter=f;document.querySelectorAll(".filters button").forEach(b=>b.classList.toggle("active",b.dataset.filter===f));renderSearch()}
+function renderSearch(){
+  const q=$("searchInput").value.trim().toLowerCase();
+  let rows=[
+    ...meetings.map(x=>({type:"meeting",text:Object.values(x).join(" ").toLowerCase(),html:meetingCard(x)})),
+    ...terms.map(x=>({type:"term",text:Object.values(x).join(" ").toLowerCase(),html:termCard(x)})),
+    ...learning.map(x=>({type:"learning",text:Object.values(x).join(" ").toLowerCase(),html:learningCard(x)}))
+  ];
+  rows=rows.filter(r=>(searchFilter==="all"||r.type===searchFilter)&&(!q||r.text.includes(q)));
+  $("searchResults").innerHTML=rows.length?rows.map(r=>r.html).join(""):'<div class="empty">該当する記録がありません</div>';
 }
 function renderHome(){
-  $("meetingCount").textContent=meetings.length;$("termCount").textContent=terms.length;
-  const recent=[
-    ...meetings.map(x=>({...x,type:"meeting",sort:x.updatedAt})),
-    ...terms.map(x=>({...x,type:"term",sort:x.updatedAt}))
-  ].sort((a,b)=>String(b.sort).localeCompare(String(a.sort))).slice(0,5);
-  $("recentList").innerHTML=recent.length?recent.map(x=>x.type==="meeting"
-    ?`<div class="item" onclick="editMeeting('${x.id}')"><span class="tag">商談</span><b>${esc(x.client)}</b><div class="meta">${esc(x.date)}</div></div>`
-    :`<div class="item" onclick="editTerm('${x.id}')"><span class="tag">用語</span><b>${esc(x.name)}</b><div class="meta">理解度 ${x.level}</div></div>`
-  ).join(""):'<div class="empty">右上ではなく、下のメニューからすぐ記録できます</div>';
+  $("meetingCount").textContent=meetings.length;$("termCount").textContent=terms.length;$("learningCount").textContent=learning.length;
+  const rows=[
+    ...meetings.map(x=>({type:"商談",title:x.client,date:x.date,updatedAt:x.updatedAt})),
+    ...terms.map(x=>({type:"用語",title:x.name,date:x.context,updatedAt:x.updatedAt})),
+    ...learning.map(x=>({type:"学び",title:x.good||"今日の振り返り",date:x.date,updatedAt:x.updatedAt}))
+  ].sort((a,b)=>String(b.updatedAt).localeCompare(String(a.updatedAt))).slice(0,5);
+  $("recentList").innerHTML=rows.length?rows.map(x=>`<div class="item" style="margin-bottom:7px"><span class="tag blue">${esc(x.type)}</span> <b>${esc(x.title)}</b><div class="meta">${esc(x.date||"")}</div></div>`).join(""):'<div class="empty">記録はまだありません</div>';
 }
-function exportData(){
-  const data={version:1,exportedAt:new Date().toISOString(),meetings,terms};
-  const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
-  const url=URL.createObjectURL(blob);const a=document.createElement("a");
-  a.href=url;a.download=`kone-memo-backup-${today()}.json`;a.click();URL.revokeObjectURL(url);
-}
-function importData(e){
-  const f=e.target.files[0];if(!f)return;
-  const r=new FileReader();r.onload=()=>{
-    try{
-      const d=JSON.parse(r.result);
-      if(!Array.isArray(d.meetings)||!Array.isArray(d.terms))throw new Error();
-      if(confirm("現在のデータをバックアップ内容で置き換えますか？")){
-        meetings=d.meetings;terms=d.terms;persist();alert("読み込みました");
-      }
-    }catch{alert("正しいバックアップファイルではありません")}
-  };r.readAsText(f);
-}
-function clearAll(){
-  if(confirm("商談メモと専門用語メモをすべて削除します。元に戻せません。")){
-    meetings=[];terms=[];persist();
-  }
-}
-function renderAll(){renderHome();renderMeetings();renderTerms()}
-resetMeetingForm();resetTermForm();renderAll();
+function renderAll(){renderHome();renderMeetings();renderTerms();renderLearning();renderSearch()}
+migrateOldData();resetMeetingForm();resetTermForm();resetLearningForm();renderAll();
 
-let installPrompt=null;
-window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();installPrompt=e;$("installBanner").style.display="block"});
-$("installBtn").onclick=async()=>{if(!installPrompt)return;installPrompt.prompt();await installPrompt.userChoice;installPrompt=null;$("installBanner").style.display="none"};
-$("closeInstall").onclick=()=>$("installBanner").style.display="none";
-if("serviceWorker" in navigator) window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
+if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}))}
 </script>
 </body>
 </html>
